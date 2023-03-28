@@ -30,7 +30,7 @@ class Tag(models.Model):
 
 
 class Quote(models.Model):
-    description = models.CharField(max_length=300, null=False)
+    description = models.CharField(max_length=500, null=False)
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, default=1)
@@ -46,3 +46,10 @@ class QuoteTag(models.Model):
 
     class Meta:
         db_table = 'quote_tag'
+
+
+class AuthorDetail(models.Model):
+    user = models.OneToOneField(Author, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.fullname

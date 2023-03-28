@@ -1,21 +1,32 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.views.generic import DetailView
+
 from .forms import AuthorForm, QuoteForm, TagForm
-from .models import Author, Quote, Tag, QuoteTag
+from .models import Author, Quote, Tag
 
 
 # Create your views here.
 
 
+class AuthorDetailView(DetailView):
+    model = Author
+    template_name = 'app_quotes/author_detail.html'
+    context_object_name = 'author'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        quotes = Quote.objects.filter(author=self.object).all()
+        context['quotes'] = quotes
+        return context
+
+
 def main(request):
-    qoutes = Quote.objects.all()
-    tags = Tag.objects.all()
-    quote_tag = QuoteTag.objects.all()
-    return render(request, 'app_quotes/index.html', {"quotes": qoutes,
+    quotes = Quote.objects.all()
+    return render(request, 'app_quotes/index.html', {"quotes": quotes,
                                                      "title": "Quotes:",
-                                                     "tags": tags,
-                                                     "quote_tag": quote_tag})
+                                                     })
 
 
 @login_required
@@ -35,7 +46,6 @@ def author(request):
 
 @login_required
 def quote(request):
-
     authors = Author.objects.all()
     tags = Tag.objects.all()
 

@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ModelForm, CharField, TextInput
 from .models import Author, Quote, Tag
 
@@ -12,7 +13,7 @@ class AuthorForm(ModelForm):
 
 
 class QuoteForm(ModelForm):
-    description = CharField(min_length=10, max_length=250, required=True, widget=TextInput())
+    description = CharField(min_length=10, max_length=500, required=True, widget=TextInput())
 
     class Meta:
         model = Quote
