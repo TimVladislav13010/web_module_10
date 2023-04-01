@@ -17,7 +17,7 @@ class Author(models.Model):
 
 
 class Tag(models.Model):
-    tag = models.CharField(max_length=25, null=False)
+    tag = models.CharField(max_length=50, null=False)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -30,7 +30,7 @@ class Tag(models.Model):
 
 
 class Quote(models.Model):
-    description = models.CharField(max_length=500, null=False)
+    description = models.CharField(max_length=5000, null=False)
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, default=1)
