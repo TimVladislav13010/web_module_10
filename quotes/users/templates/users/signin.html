@@ -15,7 +15,7 @@
 <!--Обробляємо помилки форми які не відносяться до полів -->
 {% if form.errors %}
 <div class="alert alert-danger" role="alert">
-  {{ form.non_field_errors}}
+    {{ form.non_field_errors}}
 </div>
 {% endif %}
 
@@ -34,6 +34,9 @@
             {{form.password}}
         </div>
         <span>{{form.errors.password}}</span>
+    </div>
+    <div class="small text-center">
+        <a href="{% url 'users:password_reset' %}" class="text-center"><i>Forgot Password?</i></a>
     </div>
     <button type="submit" class="btn btn-primary">Sing In</button>
 </form>
